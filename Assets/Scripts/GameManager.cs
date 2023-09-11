@@ -5,8 +5,8 @@ public class GameManager : MonoBehaviour
     public GameObject WeightPrefab;
     public GameObject SpawnPoint;
 
-    public float minSpawnInterval = 1.0f;
-    public float maxSpawnInterval = 3.0f;
+    public float minSpawnInterval = 5f;
+    public float maxSpawnInterval = 9f;
 
     private float nextSpawnTime; // Time when the next object will be spawned
 

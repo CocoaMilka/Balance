@@ -7,8 +7,10 @@ public class Weight : MonoBehaviour
     // Used for visual size and actual weight of object
     public int weight;
 
+    public Sprite[] texturesArray; // Array to hold multiple sprite textures.
+
     // Stores the offset between the mouse and the object's position
-    private Vector3 offset; 
+    private Vector3 offset;
 
     void Start()
     {
@@ -17,12 +19,20 @@ public class Weight : MonoBehaviour
 
         // Scale the GameObject based on the weight
         ScaleObject();
+
+        // Set a random sprite from the texturesArray
+        if (texturesArray.Length > 0)
+        {
+            int randomIndex = Random.Range(0, texturesArray.Length);
+            Sprite randomSprite = texturesArray[randomIndex];
+            GetComponent<SpriteRenderer>().sprite = randomSprite;
+        }
     }
 
     void ScaleObject()
     {
         // Adjust the scale of the GameObject based on the weight
-        float scaleFactor = 0.1f * weight;
+        float scaleFactor = 0.3f * weight;
 
         transform.localScale = new Vector3(scaleFactor, scaleFactor, scaleFactor);
     }
