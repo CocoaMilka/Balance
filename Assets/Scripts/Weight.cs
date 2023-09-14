@@ -14,8 +14,8 @@ public class Weight : MonoBehaviour
 
     void Start()
     {
-        // Generate a random weight between 1 and 10
-        weight = Random.Range(1, 10);
+        // Generate a random weight between 5 and 10
+        weight = Random.Range(5, 10);
 
         // Scale the GameObject based on the weight
         ScaleObject();

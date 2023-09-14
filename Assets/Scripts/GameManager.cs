@@ -1,5 +1,6 @@
 using TMPro;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
@@ -9,6 +10,7 @@ public class GameManager : MonoBehaviour
     private Destroyer isGameover;
 
     public GameObject gameOverScreen;
+    public GameObject pauseMenuScreen;
     public TMP_Text ScoreText;
     public int plushieCount;
 
@@ -16,6 +18,7 @@ public class GameManager : MonoBehaviour
     public float maxSpawnInterval = 9f;
 
     private float nextSpawnTime; // Time when the next object will be spawned
+    private bool isPaused = false; // Flag to track if the game is paused
 
     void Start()
     {
@@ -25,6 +28,28 @@ public class GameManager : MonoBehaviour
         isGameover = Destroyer.GetComponent<Destroyer>();
     }
 
+    void Update()
+    {
+        // Check for the Escape key press to toggle pause/unpause
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            if (isPaused)
+            {
+                // Unpause the game
+                Time.timeScale = 1;
+                pauseMenuScreen.SetActive(false);
+                isPaused = false;
+            }
+            else
+            {
+                // Pause the game
+                Time.timeScale = 0;
+                pauseMenuScreen.SetActive(true);
+                isPaused = true;
+            }
+        }
+    }
+
     void FixedUpdate()
     {
         if (isGameover.isGameover)
@@ -32,9 +57,8 @@ public class GameManager : MonoBehaviour
             Debug.Log("Game Over!");
             gameOverScreen.SetActive(true);
             ScoreText.text = "Plushie count: " + plushieCount;
-            Time.timeScale = 0;
         }
-        else
+        else if (!isPaused) // Check if the game is not paused
         {
             // Check if it's time to spawn a new object
             if (Time.time >= nextSpawnTime)
@@ -46,5 +70,10 @@ public class GameManager : MonoBehaviour
                 nextSpawnTime = Time.time + Random.Range(minSpawnInterval, maxSpawnInterval);
             }
         }
+    }
+
+    public void MainMenu()
+    {
+        SceneManager.LoadScene("TitleScreen");
     }
 }
