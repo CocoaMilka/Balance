@@ -9,9 +9,14 @@ public class Balance : MonoBehaviour
     int weight = 0;
     public TMP_Text weightDisplay;
     public GameManager manager;
+
+    Animator anim;
     void Start()
+
     {
         manager = FindObjectOfType<GameManager>().GetComponent<GameManager>();
+
+        anim = GetComponentInChildren<Animator>();
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
@@ -22,6 +27,7 @@ public class Balance : MonoBehaviour
         Destroy(collision.gameObject);
 
         manager.plushieCount++;
+        anim.SetTrigger("Activate");
     }
 
     // Update is called once per frame
