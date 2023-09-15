@@ -6,7 +6,7 @@ using TMPro;
 public class Balance : MonoBehaviour
 {
 
-    int weight = 0;
+    public int weight = 0;
     public TMP_Text weightDisplay;
     public GameManager manager;
 
